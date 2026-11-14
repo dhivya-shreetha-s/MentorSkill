@@ -702,6 +702,436 @@ export const ASSESSMENTS = [
         points: 1
       }
     ]
+  },
+  {
+    id: "as-dsa",
+    title: "Data Structures & Algorithms",
+    topic: "Data Structures",
+    difficulty: "Advanced",
+    time_limit_minutes: 30,
+    passing_score: 70,
+    questions: [
+      {
+        id: "q-dsa-1",
+        topic: "Data Structures",
+        question_text: "What is the time complexity of searching in a balanced Binary Search Tree (BST)?",
+        options: {
+          A: "O(1)",
+          B: "O(log n)",
+          C: "O(n)",
+          D: "O(n log n)"
+        },
+        correct_answer: "B",
+        explanation: "In a balanced BST like AVL or Red-Black tree, the height is logarithmic (O(log n)), guaranteeing O(log n) lookup, insertion, and deletion.",
+        difficulty: "Intermediate",
+        points: 1
+      },
+      {
+        id: "q-dsa-2",
+        topic: "Data Structures",
+        question_text: "Which data structure operates on a Last-In, First-Out (LIFO) principle?",
+        options: {
+          A: "Queue",
+          B: "Stack",
+          C: "Deque",
+          D: "Heap"
+        },
+        correct_answer: "B",
+        explanation: "A Stack pushes elements onto the top and pops them from the top, strictly following LIFO order.",
+        difficulty: "Beginner",
+        points: 1
+      },
+      {
+        id: "q-dsa-3",
+        topic: "Data Structures",
+        question_text: "What is the worst-case time complexity of standard Quicksort?",
+        options: {
+          A: "O(n log n)",
+          B: "O(n²)",
+          C: "O(log n)",
+          D: "O(n)"
+        },
+        correct_answer: "B",
+        explanation: "When partitions are maximally unbalanced (e.g., sorting an already sorted array with the first/last element as pivot), Quicksort degrades to O(n²).",
+        difficulty: "Intermediate",
+        points: 1
+      },
+      {
+        id: "q-dsa-4",
+        topic: "Data Structures",
+        question_text: "What is the average time complexity of insertion, deletion, and lookup in a Hash Table?",
+        options: {
+          A: "O(1)",
+          B: "O(log n)",
+          C: "O(n)",
+          D: "O(n²)"
+        },
+        correct_answer: "A",
+        explanation: "With a good uniform hash function and load factor management, hash tables deliver O(1) average time complexity.",
+        difficulty: "Beginner",
+        points: 1
+      },
+      {
+        id: "q-dsa-5",
+        topic: "Data Structures",
+        question_text: "Which algorithm is optimal for finding the shortest path between two nodes in an unweighted graph?",
+        options: {
+          A: "Depth-First Search (DFS)",
+          B: "Breadth-First Search (BFS)",
+          C: "Bellman-Ford Algorithm",
+          D: "Kruskal's Algorithm"
+        },
+        correct_answer: "B",
+        explanation: "BFS traverses level by level, guaranteeing that the first time a destination node is reached in an unweighted graph, it is via the shortest path.",
+        difficulty: "Intermediate",
+        points: 1
+      },
+      {
+        id: "q-dsa-6",
+        topic: "Data Structures",
+        question_text: "What distinguishes Dynamic Programming from simple Divide-and-Conquer?",
+        options: {
+          A: "Dynamic programming works only with trees",
+          B: "Dynamic programming caches solutions to overlapping subproblems (memoization/tabulation)",
+          C: "Divide-and-conquer does not use recursion",
+          D: "Dynamic programming is always O(1) time"
+        },
+        correct_answer: "B",
+        explanation: "Dynamic programming solves subproblems once and stores their results to avoid recomputation, requiring overlapping subproblems and optimal substructure.",
+        difficulty: "Advanced",
+        points: 1
+      },
+      {
+        id: "q-dsa-7",
+        topic: "Data Structures",
+        question_text: "In a Min-Heap with N elements, what is the time complexity to extract the minimum element?",
+        options: {
+          A: "O(1)",
+          B: "O(log n)",
+          C: "O(n)",
+          D: "O(n log n)"
+        },
+        correct_answer: "B",
+        explanation: "Finding the min is O(1), but removing it requires replacing the root with the last leaf and sift-down (heapify) which takes O(log n) time.",
+        difficulty: "Intermediate",
+        points: 1
+      },
+      {
+        id: "q-dsa-8",
+        topic: "Data Structures",
+        question_text: "What is the space complexity of Depth-First Search (DFS) on a tree of height H?",
+        options: {
+          A: "O(1)",
+          B: "O(H) due to the call stack",
+          C: "O(2^H)",
+          D: "O(N²)"
+        },
+        correct_answer: "B",
+        explanation: "The call stack in DFS stores the current path from the root to the deepest node, consuming O(H) auxiliary space.",
+        difficulty: "Intermediate",
+        points: 1
+      }
+    ]
+  },
+  {
+    id: "as-node",
+    title: "Node.js & Backend Architecture",
+    topic: "Node.js",
+    difficulty: "Intermediate",
+    time_limit_minutes: 25,
+    passing_score: 70,
+    questions: [
+      {
+        id: "q-nd-1",
+        topic: "Node.js",
+        question_text: "Which C++ library provides the event loop and asynchronous thread pool in Node.js?",
+        options: {
+          A: "V8 Engine",
+          B: "libuv",
+          C: "OpenSSL",
+          D: "c-ares"
+        },
+        correct_answer: "B",
+        explanation: "libuv is the multi-platform C library that handles the event loop, thread pool (for fs, crypto, dns), and non-blocking I/O in Node.js.",
+        difficulty: "Intermediate",
+        points: 1
+      },
+      {
+        id: "q-nd-2",
+        topic: "Node.js",
+        question_text: "What is the signature of Express.js error-handling middleware?",
+        options: {
+          A: "(req, res, next)",
+          B: "(err, req, res, next)",
+          C: "(err, req, res)",
+          D: "(error, next)"
+        },
+        correct_answer: "B",
+        explanation: "Express checks function.length (arity). Exactly 4 arguments (err, req, res, next) denotes an error-handling middleware.",
+        difficulty: "Beginner",
+        points: 1
+      },
+      {
+        id: "q-nd-3",
+        topic: "Node.js",
+        question_text: "What happens when process.nextTick() is called in Node.js?",
+        options: {
+          A: "It schedules a callback to run on the next event loop tick after all pending timers",
+          B: "It fires immediately after the current operation completes, before the event loop continues to the next phase",
+          C: "It pauses the thread for 1 millisecond",
+          D: "It creates a child worker thread"
+        },
+        correct_answer: "B",
+        explanation: "process.nextTick() callbacks run immediately after the current operation finishes on the call stack, prior to any other event loop phase or microtask.",
+        difficulty: "Advanced",
+        points: 1
+      },
+      {
+        id: "q-nd-4",
+        topic: "Node.js",
+        question_text: "What is 'backpressure' in Node.js streams?",
+        options: {
+          A: "A network timeout caused by dropped TCP packets",
+          B: "A condition where data is produced faster than the downstream consumer can process, signaling the readable stream to pause",
+          C: "CPU throttling under high load",
+          D: "A memory leak caused by unclosed sockets"
+        },
+        correct_answer: "B",
+        explanation: "Backpressure occurs when the write buffer exceeds highWaterMark. The stream returns false on write(), asking the reader to pause until 'drain' is emitted.",
+        difficulty: "Advanced",
+        points: 1
+      },
+      {
+        id: "q-nd-5",
+        topic: "Node.js",
+        question_text: "What does the Cluster module in Node.js do?",
+        options: {
+          A: "Manages database connections across clusters",
+          B: "Spawns multiple child processes that share the same server port to take advantage of multi-core CPU architectures",
+          C: "Compresses HTTP response bodies using gzip",
+          D: "Encrypts API payloads using AES-256"
+        },
+        correct_answer: "B",
+        explanation: "The cluster module enables easy creation of child worker processes that share server ports, allowing a Node application to scale across multiple CPU cores.",
+        difficulty: "Intermediate",
+        points: 1
+      },
+      {
+        id: "q-nd-6",
+        topic: "Node.js",
+        question_text: "How does Node.js handle uncaught exceptions without a try/catch?",
+        options: {
+          A: "It silences the error and resumes execution",
+          B: "It emits 'uncaughtException' on the process object and exits if unhandled, because process state is unpredictable",
+          C: "It automatically restarts the server",
+          D: "It dumps memory to an SQL database"
+        },
+        correct_answer: "B",
+        explanation: "Uncaught exceptions bubble to process.uncaughtException. The recommended practice is to log the error and terminate cleanly since application state is compromised.",
+        difficulty: "Intermediate",
+        points: 1
+      }
+    ]
+  },
+  {
+    id: "as-html",
+    title: "HTML & CSS Responsive Design",
+    topic: "HTML/CSS",
+    difficulty: "Beginner",
+    time_limit_minutes: 15,
+    passing_score: 70,
+    questions: [
+      {
+        id: "q-hc-1",
+        topic: "HTML/CSS",
+        question_text: "What are the four core components of the CSS Box Model?",
+        options: {
+          A: "Header, Body, Aside, Footer",
+          B: "Content, Padding, Border, Margin",
+          C: "Width, Height, Top, Left",
+          D: "Flex, Grid, Inline, Block"
+        },
+        correct_answer: "B",
+        explanation: "Every element in CSS is rendered as a rectangular box comprising the content area, padding, border, and outermost margin.",
+        difficulty: "Beginner",
+        points: 1
+      },
+      {
+        id: "q-hc-2",
+        topic: "HTML/CSS",
+        question_text: "What is the difference between 'display: none' and 'visibility: hidden'?",
+        options: {
+          A: "There is no difference",
+          B: "'display: none' removes the element from document layout flow; 'visibility: hidden' hides it while preserving its occupied space",
+          C: "'visibility: hidden' disables mouse clicks; 'display: none' allows clicks",
+          D: "'display: none' works only in CSS Grid"
+        },
+        correct_answer: "B",
+        explanation: "display: none removes the element completely from rendering geometry, whereas visibility: hidden makes the element invisible but retains its original layout box dimensions.",
+        difficulty: "Beginner",
+        points: 1
+      },
+      {
+        id: "q-hc-3",
+        topic: "HTML/CSS",
+        question_text: "What does 'rem' unit in CSS represent?",
+        options: {
+          A: "Relative to the parent element's font size",
+          B: "Relative to the root <html> element's font size",
+          C: "Relative to the viewport width",
+          D: "Relative to device screen DPI"
+        },
+        correct_answer: "B",
+        explanation: "1rem equals the font size of the root <html> element (typically 16px by default), avoiding compounding inheritance issues common with 'em'.",
+        difficulty: "Beginner",
+        points: 1
+      },
+      {
+        id: "q-hc-4",
+        topic: "HTML/CSS",
+        question_text: "In CSS Flexbox, what does 'justify-content: space-between' do?",
+        options: {
+          A: "Centers all child items with equal margins",
+          B: "Distributes flex items evenly along the main axis with the first item flush against the start edge and the last item flush against the end edge",
+          C: "Stacks items vertically in reverse order",
+          D: "Stretches items to fill the cross axis"
+        },
+        correct_answer: "B",
+        explanation: "justify-content: space-between allocates all remaining free space evenly strictly between child flex items, placing edge items flush against boundaries.",
+        difficulty: "Intermediate",
+        points: 1
+      },
+      {
+        id: "q-hc-5",
+        topic: "HTML/CSS",
+        question_text: "What CSS Grid snippet produces an auto-responsive card grid without needing media queries?",
+        options: {
+          A: "grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));",
+          B: "grid-template-columns: 1fr 1fr 1fr;",
+          C: "grid-auto-flow: dense row;",
+          D: "grid-column: span auto;"
+        },
+        correct_answer: "A",
+        explanation: "repeat(auto-fit, minmax(280px, 1fr)) dynamically packs as many columns as fit the viewport with minimum 280px width, expanding up to 1fr each.",
+        difficulty: "Intermediate",
+        points: 1
+      },
+      {
+        id: "q-hc-6",
+        topic: "HTML/CSS",
+        question_text: "Why are Semantic HTML elements like <main>, <nav>, and <article> important?",
+        options: {
+          A: "They are required by the browser to execute JavaScript",
+          B: "They convey structural meaning to search engines, screen readers, and accessibility tree APIs",
+          C: "They automatically apply Tailwind CSS classes",
+          D: "They compress HTML transmission size by 50%"
+        },
+        correct_answer: "B",
+        explanation: "Semantic elements communicate intent and document hierarchy to assistive tech (screen readers), web crawlers (SEO), and maintainers.",
+        difficulty: "Beginner",
+        points: 1
+      }
+    ]
+  },
+  {
+    id: "as-ml",
+    title: "Machine Learning & AI Principles",
+    topic: "Machine Learning",
+    difficulty: "Advanced",
+    time_limit_minutes: 30,
+    passing_score: 70,
+    questions: [
+      {
+        id: "q-ml-1",
+        topic: "Machine Learning",
+        question_text: "What is the primary indicator of Overfitting in a machine learning model?",
+        options: {
+          A: "High training loss and high validation loss",
+          B: "Very low training loss but significantly high validation loss / poor generalization to unseen data",
+          C: "Model training takes zero seconds",
+          D: "All predicted probabilities are exactly 0.5"
+        },
+        correct_answer: "B",
+        explanation: "Overfitting occurs when a complex model memorizes noise in the training set, yielding near-perfect training metrics but failing on validation data.",
+        difficulty: "Beginner",
+        points: 1
+      },
+      {
+        id: "q-ml-2",
+        topic: "Machine Learning",
+        question_text: "Which evaluation metric is best suited for binary classification with severe class imbalance (e.g. 99% negative, 1% positive)?",
+        options: {
+          A: "Accuracy",
+          B: "Precision-Recall AUC / F1-Score",
+          C: "Mean Squared Error",
+          D: "R-Squared"
+        },
+        correct_answer: "B",
+        explanation: "A naive classifier predicting all negatives achieves 99% accuracy on imbalanced data. F1-Score and PR-AUC properly assess true positive detection versus false alarms.",
+        difficulty: "Intermediate",
+        points: 1
+      },
+      {
+        id: "q-ml-3",
+        topic: "Machine Learning",
+        question_text: "What is the fundamental mechanism behind Transformer architectures (e.g., GPT, BERT)?",
+        options: {
+          A: "Recurrent feedback loops with hidden gate states",
+          B: "Multi-Head Self-Attention mechanisms that compute contextual relationships across all token positions simultaneously",
+          C: "Convolutions with 3x3 kernel sliding filters",
+          D: "Decision tree gradient boosting"
+        },
+        correct_answer: "B",
+        explanation: "Self-attention computes dynamic weightings between all pairs of tokens in parallel, capturing long-range dependencies without sequential bottlenecking.",
+        difficulty: "Advanced",
+        points: 1
+      },
+      {
+        id: "q-ml-4",
+        topic: "Machine Learning",
+        question_text: "What purpose does the Dropout technique serve in Deep Neural Networks?",
+        options: {
+          A: "Speeds up inference on GPU hardware",
+          B: "Acts as a regularization technique by randomly zeroing activations during training to prevent co-adaptation of neurons",
+          C: "Normalizes mini-batch gradients to unit variance",
+          D: "Initializes weights using Gaussian distribution"
+        },
+        correct_answer: "B",
+        explanation: "Dropout randomly deactivates a fraction of neurons during training passes, forcing the network to learn robust, redundant feature representations.",
+        difficulty: "Intermediate",
+        points: 1
+      },
+      {
+        id: "q-ml-5",
+        topic: "Machine Learning",
+        question_text: "What problem does the ReLU (Rectified Linear Unit) activation function alleviate compared to Sigmoid?",
+        options: {
+          A: "Vanishing gradient problem in deep hidden layers",
+          B: "Exploding memory footprint",
+          C: "Need for backpropagation",
+          D: "Loss function convexity"
+        },
+        correct_answer: "A",
+        explanation: "Sigmoid gradients saturate near 0 for extreme values, causing vanishing gradients in deep networks. ReLU has constant gradient 1 for positive inputs.",
+        difficulty: "Intermediate",
+        points: 1
+      },
+      {
+        id: "q-ml-6",
+        topic: "Machine Learning",
+        question_text: "In Supervised Learning, what is the role of the loss function?",
+        options: {
+          A: "To encrypt the training dataset",
+          B: "To mathematically quantify the difference between the model's prediction and the actual ground truth label",
+          C: "To partition data into train and test splits",
+          D: "To deploy models to cloud endpoints"
+        },
+        correct_answer: "B",
+        explanation: "The loss function calculates prediction error, providing the scalar value that optimization algorithms (like Adam or SGD) minimize via gradient descent.",
+        difficulty: "Beginner",
+        points: 1
+      }
+    ]
   }
 ];
 

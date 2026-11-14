@@ -15,5 +15,6 @@ router.get('/', getAssessments);
 router.get('/history', getAssessmentHistory);
 router.get('/:id', getAssessmentWithQuestions);
 router.post('/submit', submitAssessment);
+router.post('/:id/submit', submitAssessment);
 
 export default router;
