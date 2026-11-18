@@ -76,8 +76,17 @@ app.use((req, res) => {
 // Global Error Handler
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`MentorSkill backend server running on port ${PORT}`);
-});
+// Start server only when executed directly (not when imported in tests)
+const isMainModule = process.argv[1] && (
+  process.argv[1] === fileURLToPath(import.meta.url) ||
+  process.argv[1].endsWith('server.js')
+);
 
+if (isMainModule) {
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`MentorSkill backend server running on port ${PORT} bound to 0.0.0.0`);
+  });
+}
+
+export { app };
 export default app;

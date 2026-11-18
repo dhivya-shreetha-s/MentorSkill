@@ -1,4 +1,4 @@
-import { getSupabaseClientWithToken, getSupabaseClient } from '../services/supabaseService.js';
+import { getSupabaseClientWithToken, getSupabaseClient, withTimeout } from '../services/supabaseService.js';
 import { memoryStore, getUserSkills } from '../utils/memoryStore.js';
 
 // Master skills list
@@ -13,7 +13,7 @@ const DEFAULT_MASTER_SKILLS = [
 export const getMasterSkills = async (req, res) => {
   try {
     const supabase = getSupabaseClient();
-    const { data } = await supabase.from('skills').select('*').order('name');
+    const { data } = await withTimeout(supabase.from('skills').select('*').order('name'), 1500);
     if (data && data.length > 0) return res.json({ skills: data });
     res.json({ skills: DEFAULT_MASTER_SKILLS.map(name => ({ id: name, name })) });
   } catch (e) {

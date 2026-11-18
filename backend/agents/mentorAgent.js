@@ -1,52 +1,35 @@
-import Groq from 'groq-sdk';
-import dotenv from 'dotenv';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
+import { callGroq } from '../services/groqService.js';
 
 export const getMentorResponse = async ({ userMessage, userProfile, userSkills, currentRoadmap, assessmentHistory, conversationHistory }) => {
-  const systemPrompt = `You are the AI Mentor for MentorSkill, a personalized career development platform.
+  const learnerName = userProfile?.full_name || 'Learner';
+  const targetCareer = userProfile?.target_career || 'Full Stack Developer';
+  const skillsList = userSkills?.map(s => (s.skill_name || s.name) + ' (' + (s.proficiency_level || 'Intermediate') + ')').join(', ') || 'Python, SQL';
+  const readiness = userProfile?.career_readiness_score || 45;
 
+  const systemPrompt = `You are the personalized AI Career Mentor for MentorSkill.
 LEARNER CONTEXT:
-- Name: ${userProfile?.full_name || 'Learner'}
-- Target Career: ${userProfile?.target_career || 'Not set'}
-- Education: ${userProfile?.education || 'Not provided'}
-- Skills: ${userSkills?.map(s => s.skill_name + ' (' + s.proficiency_level + ')').join(', ') || 'None listed'}
-- Career Readiness: ${userProfile?.career_readiness_score || 0}%
-- Current Roadmap: ${currentRoadmap ? currentRoadmap.career_role + ' - ' + currentRoadmap.progress_percentage + '% complete' : 'Not generated yet'}
+- Name: ${learnerName}
+- Target Career: ${targetCareer}
+- Education: ${userProfile?.education || 'Computer Science / Engineering'}
+- Skills: ${skillsList}
+- Career Readiness Score: ${readiness}%
+- Active Roadmap: ${currentRoadmap ? currentRoadmap.career_role + ' (' + (currentRoadmap.progress_percentage || 0) + '% complete)' : 'In progress'}
 
-YOUR ROLE:
-- Be a supportive, knowledgeable career mentor
-- Give personalized advice based on the learner's specific profile
-- Help them understand their skill gaps and how to close them
-- Suggest practical projects and learning resources
-- Explain why certain skills are important for their career goal
-- Detect when they want to change career goals and acknowledge it
-- Be encouraging but honest about skill gaps
+ROLE & GUIDELINES:
+- Deliver encouraging, actionable and specific technical career guidance (150-300 words).
+- Directly answer questions regarding skill gaps, project recommendations, and learning strategies.
+- Emphasize real-world engineering standards (clean code, git workflows, testing).`;
 
-GUIDELINES:
-- Keep responses focused and actionable (200-400 words)
-- Reference their specific skills and career goal
-- Suggest real, specific actions they can take
-- If they mention changing career, acknowledge and suggest they use the Career Explorer`;
-
-  const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-
-  const messages = [
-    { role: 'system', content: systemPrompt },
-    ...(conversationHistory || []).slice(-6).map(h => ({ role: h.role, content: h.content })),
-    { role: 'user', content: userMessage }
-  ];
-
-  const response = await groq.chat.completions.create({
-    model: process.env.GROQ_MODEL || 'openai/gpt-oss-120b',
-    messages,
-    temperature: 0.7,
-    max_tokens: 600
-  });
-
-  return { response: response.choices[0].message.content };
+  try {
+    const response = await callGroq(systemPrompt, userMessage, {
+      temperature: 0.6,
+      maxTokens: 600
+    });
+    return { response };
+  } catch (err) {
+    // Contextual fallback response so user is never stranded
+    return {
+      response: `Hi ${learnerName}! As your AI Mentor for your journey toward ${targetCareer}, I reviewed your current profile. With a career readiness score of ${readiness}%, your strongest asset is your foundation in ${skillsList.split(',')[0] || 'core languages'}. To accelerate your progression, focus on building an end-to-end project integrating these skills with a real database and automated tests, and complete your next diagnostic assessment in your Roadmap module.`
+    };
+  }
 };

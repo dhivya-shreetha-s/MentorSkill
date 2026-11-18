@@ -24,6 +24,9 @@ export const runInitialCareerAnalysis = async (userId, userToken) => {
     }
   } catch (e) {}
   if (!profile) profile = getUserProfile(userId);
+  if (memoryStore.profiles[userId]) {
+    profile = { ...profile, ...memoryStore.profiles[userId] };
+  }
 
   // 2. Fetch User Skills
   let userSkills = [];
@@ -456,7 +459,13 @@ export const runAssessmentAdaptation = async (userId, userToken, assessmentResul
     });
   }
 
-  return evaluation;
+  return {
+    evaluation,
+    ...evaluation,
+    shouldAdaptRoadmap: evaluation?.shouldAdaptRoadmap,
+    performanceLevel: evaluation?.performanceLevel,
+    roadmap
+  };
 };
 
 export const runCareerGoalChange = async (userId, userToken, newCareerRole) => {
@@ -475,11 +484,17 @@ export const runCareerGoalChange = async (userId, userToken, newCareerRole) => {
   }
 
   // 2. Update profile
-  if (memoryStore.profiles[userId]) {
-    memoryStore.profiles[userId].target_career = newCareerRole;
-    memoryStore.profiles[userId].updated_at = new Date().toISOString();
+  if (!memoryStore.profiles[userId]) {
+    memoryStore.profiles[userId] = { id: userId };
   }
+  memoryStore.profiles[userId].target_career = newCareerRole;
+  memoryStore.profiles[userId].updated_at = new Date().toISOString();
 
   // 3. Re-run initial analysis for new career
-  return await runInitialCareerAnalysis(userId, userToken);
+  const result = await runInitialCareerAnalysis(userId, userToken);
+  return {
+    ...result,
+    newGoal: newCareerRole,
+    success: true
+  };
 };

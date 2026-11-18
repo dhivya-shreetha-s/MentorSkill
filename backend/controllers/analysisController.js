@@ -75,12 +75,18 @@ export const getAgentLogs = async (req, res) => {
 export const changeCareerGoal = async (req, res) => {
   try {
     const userId = req.user?.id || 'demo-user-1';
-    const { newCareerRole } = req.body;
+    const newCareerRole = req.body.newCareerRole || req.body.newGoal || req.body.targetCareer || req.body.careerRole;
     if (!newCareerRole) {
-      return res.status(400).json({ error: 'newCareerRole is required' });
+      return res.status(400).json({ error: 'newCareerRole or newGoal is required' });
     }
     const result = await runCareerGoalChange(userId, req.token, newCareerRole);
-    res.json({ success: true, result });
+    res.json({
+      success: true,
+      newGoal: newCareerRole,
+      newCareerRole,
+      roadmap: result?.roadmap,
+      result
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
